@@ -62,18 +62,18 @@ export class DiagramStyles {
     const nodeText = nodeEles.selectAll('.node-text');
     nodeShape
       .transition(utils.transitionLinear(durationSecond))
-      .attr('d', (d: Node) => nodeStateDefault.shapeSuperformula.getPath(d))
-      .attr('stroke-width', (d: Node) => 1)
-      .attr('stroke', (d: Node) => constants.colorScale(utils.strToLowerOrEmpty(d.group)))
-      .attr('fill', (d: Node) => constants.colorScale(utils.strToLowerOrEmpty(d.group)))
+      .attr('d', (d: any) => nodeStateDefault.shapeSuperformula.getPath(d))
+      .attr('stroke-width', (d: any) => 1)
+      .attr('stroke', (d: any) => constants.colorScale(utils.strToLowerOrEmpty(d.group)))
+      .attr('fill', (d: any) => constants.colorScale(utils.strToLowerOrEmpty(d.group)))
       .style('stroke-opacity', 1)
       .style('fill-opacity', 1);
     nodeText
-      .style('opacity', (d: Node) => utils.nodeTextOpacity(d, this.showAllLabels))
+      .style('opacity', (d: any) => utils.nodeTextOpacity(d, this.showAllLabels))
       .attr('text-anchor', 'right')
       .attr('dominant-baseline', 'central')
-      .attr('transform', (d: Node) => utils.nodeTextShiftRight(d))
-      .text((d: Node) => d.name || d.group || '');
+      .attr('transform', (d: any) => utils.nodeTextShiftRight(d))
+      .text((d: any) => d.name || d.group || '');
   }
 
   public applyNodeSearch(nodeEles: d3.Selection<SVGGElement, Node, d3.BaseType, any>) {
@@ -85,25 +85,25 @@ export class DiagramStyles {
     nodeShape
       .transition()
       .duration(durationMediumLong)
-      .attr('d', (d: Node) =>
+      .attr('d', (d: any) =>
         bigSuperdupaPath
           .size(bd => {
             return 5 * utils.getHighlightedRadius(bd);
           })
           .getPath(d)
       )
-      .attr('stroke', (d: Node) => constants.highlightColor)
-      .attr('fill', (d: Node) => constants.highlightColor)
+      .attr('stroke', constants.highlightColor)
+      .attr('fill', constants.highlightColor)
       .style('stroke-opacity', 1)
       .style('fill-opacity', 1)
       .transition()
       .duration(durationMedium)
-      .attr('d', (d: Node) => nodeStateSearch.shapeSuperformula.getPath(d));
+      .attr('d', (d: any) => nodeStateSearch.shapeSuperformula.getPath(d));
     nodeText
       .transition()
       .duration(durationLong)
       .style('opacity', 1)
-      .attr('transform', (d: Node) => {
+      .attr('transform', (d: any) => {
         return utils.nodeTextShiftRight(d, nodeStateSearch.nodeTextShiftMultiplier);
       });
   }
@@ -116,16 +116,16 @@ export class DiagramStyles {
     nodeShape
       .transition()
       .duration(durationMedium)
-      .attr('d', (d: Node) => nodeStateHighlight.shapeSuperformula.getPath(d))
-      .attr('stroke', (d: Node) => utils.darkenIfInvertedBackground(constants.highlightColor, this.invertedBackground))
-      .attr('fill', (d: Node) => utils.darkenIfInvertedBackground(constants.highlightColor, this.invertedBackground))
+      .attr('d', (d: any) => nodeStateHighlight.shapeSuperformula.getPath(d))
+      .attr('stroke', (d: any) => utils.darkenIfInvertedBackground(constants.highlightColor, this.invertedBackground))
+      .attr('fill', (d: any) => utils.darkenIfInvertedBackground(constants.highlightColor, this.invertedBackground))
       .style('stroke-opacity', 1)
       .style('fill-opacity', 1);
     nodeText
       .transition()
       .duration(durationLong)
       .style('opacity', 1)
-      .attr('transform', (d: Node) => {
+      .attr('transform', (d: any) => {
         return utils.nodeTextShiftRight(d, nodeStateHighlight.nodeTextShiftMultiplier);
       });
   }
@@ -138,9 +138,9 @@ export class DiagramStyles {
     nodeShape
       .transition()
       .duration(durationLong)
-      .attr('d', (d: Node) => nodeStateHighlightNeighbour.shapeSuperformula.getPath(d))
-      .attr('stroke', (d: Node) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
-      .attr('fill', (d: Node) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
+      .attr('d', (d: any) => nodeStateHighlightNeighbour.shapeSuperformula.getPath(d))
+      .attr('stroke', (d: any) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
+      .attr('fill', (d: any) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
       .style('stroke-opacity', 1)
       .style('fill-opacity', 1);
     nodeText
@@ -157,15 +157,15 @@ export class DiagramStyles {
     nodeShape
       .transition()
       .duration(durationLong)
-      .attr('d', (d: Node) => nodeStateUnhighlighted.shapeSuperformula.getPath(d))
-      .attr('stroke', (d: Node) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
-      .attr('fill', (d: Node) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
+      .attr('d', (d: any) => nodeStateUnhighlighted.shapeSuperformula.getPath(d))
+      .attr('stroke', (d: any) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
+      .attr('fill', (d: any) => utils.darkenIfInvertedBackground(constants.everythingElseColor, this.invertedBackground))
       .style('stroke-opacity', this.showOnlyHighlighted ? 0 : constants.everythingElseOpacity)
       .style('fill-opacity', this.showOnlyHighlighted ? 0 : constants.everythingElseOpacity);
     nodeText
       .transition()
       .duration(durationLong)
-      .style('opacity', (d: Node) => (this.showOnlyHighlighted ? 0 : this.showAllLabels ? 1 : 0))
+      .style('opacity', (d: any) => (this.showOnlyHighlighted ? 0 : this.showAllLabels ? 1 : 0))
       .attr('transform', d => {
         return utils.nodeTextShiftRight(d as Node);
       });
@@ -306,7 +306,7 @@ export class DiagramStyles {
       .attr('d', utils.drawCluster)
       .transition()
       .duration(durationLong)
-      .style('fill', (d: Node) => constants.colorScale(d.group || ''))
+      .style('fill', (d: any) => constants.colorScale(d.group || ''))
       .style('fill-opacity', 0.3);
   }
 

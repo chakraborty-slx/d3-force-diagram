@@ -128,7 +128,7 @@ let hasForceSimulation: boolean = true;
 const diagramStyles = new DiagramStyles();
 
 // zooming
-let zoom: d3.ZoomBehavior<Element, {}>;
+let zoom: d3.ZoomBehavior<Element, any>;
 function zoomed() {
   svg.select('.links').attr('transform', d3.event.transform);
   svg.select('.nodes').attr('transform', d3.event.transform);
@@ -257,7 +257,7 @@ function updateSimulation() {
   nodeElements = svg
     .select('.nodes')
     .selectAll('.node')
-    .data(nodes, utils.getNodeId) as any;
+    .data(nodes, utils.getNodeId as any) as any;
 
   hullElements = svg
     .select('.hulls')
